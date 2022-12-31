@@ -9,13 +9,13 @@ if [ -f /tmp/nvidia_vgpu_driver ]; then
   FILETIME=$(stat /tmp/nvidia_vgpu_driver -c %Y)
   DIFF=$(expr $CURENTTIME - $FILETIME)
   if [ $DIFF -gt $CHK_TIMEOUT ]; then
-    echo -n "$(wget -qO- https://api.github.com/repos/stl88083365/unraid-nvidia-vgpu-driver/releases/tags/${KERNEL_V} | jq -r '.assets[].name' | grep "${PACKAGE}" | grep -E -v '\.md5$' | awk -F "-" '{print $3}' | sort -V | tail -10)" > /tmp/nvidia_vgpu_driver
+    echo -n "$(wget -qO- https://api.github.com/repos/DanITman/unraid-nvidia-vgpu-driver/releases/tags/${KERNEL_V} | jq -r '.assets[].name' | grep "${PACKAGE}" | grep -E -v '\.md5$' | awk -F "-" '{print $3}' | sort -V | tail -10)" > /tmp/nvidia_vgpu_driver
     if [ ! -s /tmp/nvidia_vgpu_driver ]; then
       echo -n "$(modinfo nvidia | grep "version:" | awk '{print $2}' | head -1)" > /tmp/nvidia_vgpu_driver
     fi
   fi
 else
-  echo -n "$(wget -qO- https://api.github.com/repos/stl88083365/unraid-nvidia-vgpu-driver/releases/tags/${KERNEL_V} | jq -r '.assets[].name' | grep "${PACKAGE}" | grep -E -v '\.md5$' | awk -F "-" '{print $3}' | sort -V | tail -10)" > /tmp/nvidia_vgpu_driver
+  echo -n "$(wget -qO- https://api.github.com/repos/DanITman/unraid-nvidia-vgpu-driver/releases/tags/${KERNEL_V} | jq -r '.assets[].name' | grep "${PACKAGE}" | grep -E -v '\.md5$' | awk -F "-" '{print $3}' | sort -V | tail -10)" > /tmp/nvidia_vgpu_driver
   if [ ! -s /tmp/nvidia_vgpu_driver ]; then
     echo -n "$(modinfo nvidia | grep "version:" | awk '{print $2}' | head -1)" > /tmp/nvidia_vgpu_driver
   fi
@@ -24,13 +24,13 @@ if [ -f /tmp/nvidia_branches ]; then
   FILETIME=$(stat /tmp/nvidia_branches -c %Y)
   DIFF=$(expr $CURENTTIME - $FILETIME)
   if [ $DIFF -gt $CHK_TIMEOUT ]; then
-    echo -n "$(wget -q -N -O /tmp/nvidia_branches https://raw.githubusercontent.com/stl88083365/unraid-nvidia-vgpu-driver/master/nvidia_vgpu_versions)"
+    echo -n "$(wget -q -N -O /tmp/nvidia_branches https://raw.githubusercontent.com/DanITman/unraid-nvidia-vgpu-driver/master/nvidia_vgpu_versions)"
     if [ ! -s /tmp/nvidia_branches ]; then
       rm -rf /tmp/nvidia_branches
     fi
   fi
 else
-  echo -n "$(wget -q -N -O /tmp/nvidia_branches https://raw.githubusercontent.com/stl88083365/unraid-nvidia-vgpu-driver/master/nvidia_vgpu_versions)"
+  echo -n "$(wget -q -N -O /tmp/nvidia_branches https://raw.githubusercontent.com/DanITman/unraid-nvidia-vgpu-driver/master/nvidia_vgpu_versions)"
 fi
 }
 

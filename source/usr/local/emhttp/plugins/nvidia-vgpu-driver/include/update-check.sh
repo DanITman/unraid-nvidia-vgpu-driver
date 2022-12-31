@@ -33,7 +33,7 @@ fi
 if [[ "${SET_DRV_V}" != "latest" && "${SET_DRV_V}" != "latest_prb" && "${SET_DRV_V}" != "latest_nfb" ]]; then
   exit 0
 elif [ "${SET_DRV_V}" == "latest" ]; then
-  LAT_PACKAGE="$(wget -qO- https://api.github.com/repos/stl88083365/unraid-nvidia-vgpu-driver/releases/tags/${KERNEL_V} | jq -r '.assets[].name' | grep "$PACKAGE" | grep -E -v '\.md5$' | sort -V | tail -1)"
+  LAT_PACKAGE="$(wget -qO- https://api.github.com/repos/DanITman/unraid-nvidia-vgpu-driver/releases/tags/${KERNEL_V} | jq -r '.assets[].name' | grep "$PACKAGE" | grep -E -v '\.md5$' | sort -V | tail -1)"
   if [ -z ${LAT_PACKAGE} ]; then
     logger "Nvidia-vGPU-Driver-Plugin: Automatic update check failed, can't get latest version number!"
     exit 1
@@ -41,8 +41,8 @@ elif [ "${SET_DRV_V}" == "latest" ]; then
     download
   fi
 elif [ "${SET_DRV_V}" == "latest_prb" ]; then
-  AVAIL_V="$(wget -qO- https://api.github.com/repos/stl88083365/unraid-nvidia-vgpu-driver/releases/tags/${KERNEL_V} | jq -r '.assets[].name' | grep "$PACKAGE" | grep -E -v '\.md5$' | sort -V)"
-  PRB_V="$(wget -qO- https://raw.githubusercontent.com/stl88083365/unraid-nvidia-vgpu-driver/master/nvidia_vgpu_versions | grep "PRB" | cut -d '=' -f2 | sort -V)"
+  AVAIL_V="$(wget -qO- https://api.github.com/repos/DanITman/unraid-nvidia-vgpu-driver/releases/tags/${KERNEL_V} | jq -r '.assets[].name' | grep "$PACKAGE" | grep -E -v '\.md5$' | sort -V)"
+  PRB_V="$(wget -qO- https://raw.githubusercontent.com/DanITman/unraid-nvidia-vgpu-driver/master/nvidia_vgpu_versions | grep "PRB" | cut -d '=' -f2 | sort -V)"
   LAT_PACKAGE="$(comm -12 <(echo "$(echo "$AVAIL_V" | cut -d '-' -f2)") <(echo "${PRB_V}") | tail -1)"
   if [ -z ${LAT_PACKAGE} ]; then
     logger "Nvidia-vGPU-Driver-Plugin: Automatic update check failed, can't get latest Production Branch version number!"
@@ -51,8 +51,8 @@ elif [ "${SET_DRV_V}" == "latest_prb" ]; then
     download
   fi
 elif [ "${SET_DRV_V}" == "latest_nfb" ]; then
-  AVAIL_V="$(wget -qO- https://api.github.com/repos/stl88083365/unraid-nvidia-vgpu-driver/releases/tags/${KERNEL_V} | jq -r '.assets[].name' | grep "$PACKAGE" | grep -E -v '\.md5$' | sort -V)"
-  NFB_V="$(wget -qO- https://raw.githubusercontent.com/stl88083365/unraid-nvidia-vgpu-driver/master/nvidia_vgpu_versions | grep "NFB" | cut -d '=' -f2 | sort -V)"
+  AVAIL_V="$(wget -qO- https://api.github.com/repos/DanITman/unraid-nvidia-vgpu-driver/releases/tags/${KERNEL_V} | jq -r '.assets[].name' | grep "$PACKAGE" | grep -E -v '\.md5$' | sort -V)"
+  NFB_V="$(wget -qO- https://raw.githubusercontent.com/DanITman/unraid-nvidia-vgpu-driver/master/nvidia_vgpu_versions | grep "NFB" | cut -d '=' -f2 | sort -V)"
   LAT_PACKAGE="$(comm -12 <(echo "$(echo "$AVAIL_V" | cut -d '-' -f2)") <(echo "${NFB_V}") | tail -1)"
   if [ -z ${LAT_PACKAGE} ]; then
     logger "Nvidia-vGpu-Driver-Plugin: Automatic update check failed, can't get latest New Feature Branch version number!"

@@ -1,7 +1,7 @@
 <?xml version='1.0' standalone='yes'?>
 <!DOCTYPE PLUGIN [
   <!ENTITY name      "nvidia-vgpu-driver">
-  <!ENTITY author    "stl88083365">
+  <!ENTITY author    "DanITman">
   <!ENTITY version   "2022.09.01">
   <!ENTITY launch    "Settings/nvidia-vgpu-driver">
   <!ENTITY gitURL    "https://github.com/&author;/unraid-&name;/raw/master">
@@ -77,7 +77,7 @@ fi
 }
 
 get_version() {
-LAT_PACKAGE="$(wget -qO- https://api.github.com/repos/stl88083365/unraid-nvidia-vgpu-driver/releases/tags/${KERNEL_V} | jq -r '.assets[].name' | grep "${PACKAGE}" | grep -E -v '\.md5$' | sort -V | tail -1)"
+LAT_PACKAGE="$(wget -qO- https://api.github.com/repos/DanITman/unraid-nvidia-vgpu-driver/releases/tags/${KERNEL_V} | jq -r '.assets[].name' | grep "${PACKAGE}" | grep -E -v '\.md5$' | sort -V | tail -1)"
 if [ -z "$LAT_PACKAGE" ]; then
   if [ -z "$CUR_V" ]; then
     echo
@@ -133,7 +133,7 @@ fi
 #Set variables
 KERNEL_V="$(uname -r)"
 PACKAGE="nvidia"
-DL_URL="https://github.com/stl88083365/unraid-nvidia-vgpu-driver/releases/download/${KERNEL_V}"
+DL_URL="https://github.com/DanITman/unraid-nvidia-vgpu-driver/releases/download/${KERNEL_V}"
 
 if [ ! -d "&packages;/${KERNEL_V%%-*}" ]; then
   mkdir -p "&packages;/${KERNEL_V%%-*}"
@@ -205,11 +205,11 @@ fi
 
 #Check if Plugin Update Helper is downloaded and up-to-date
 if [ ! -f &plugin;/plugin_update_helper ]; then
-  wget -q -T 5 -O &plugin;/plugin_update_helper "https://raw.githubusercontent.com/stl88083365/unraid-nvidia-vgpu-driver/master/plugin_update_helper"
+  wget -q -T 5 -O &plugin;/plugin_update_helper "https://raw.githubusercontent.com/DanITman/unraid-nvidia-vgpu-driver/master/plugin_update_helper"
 else
   CUR_V="$(grep -E "Plugin-Update-Helper version:" &plugin;/plugin_update_helper | awk '{print $4}')"
   if [ ! -s /tmp/update-helper ]; then
-    echo "$(wget -T5 -qO- https://raw.githubusercontent.com/stl88083365/unraid-nvidia-vgpu-driver/master/plugin_update_helper | grep -E "Plugin-Update-Helper version:" | awk '{print $4}')" > /tmp/update-helper
+    echo "$(wget -T5 -qO- https://raw.githubusercontent.com/DanITman/unraid-nvidia-vgpu-driver/master/plugin_update_helper | grep -E "Plugin-Update-Helper version:" | awk '{print $4}')" > /tmp/update-helper
     AVAIL_V="$(cat /tmp/update-helper)"
   else
     AVAIL_V="$(cat /tmp/update-helper)"
@@ -217,7 +217,7 @@ else
   if [ ! -z "$AVAIL_V" ]; then
     COMPARE="$(sort -V &lt;(echo -e "${AVAIL_V}\n$CUR_V") | tail -1)"
     if [ "$CUR_V" != "$COMPARE" ]; then
-      wget -q -T 5 -O &plugin;/plugin_update_helper "https://raw.githubusercontent.com/stl88083365/unraid-nvidia-vgpu-driver/master/plugin_update_helper"
+      wget -q -T 5 -O &plugin;/plugin_update_helper "https://raw.githubusercontent.com/DanITman/unraid-nvidia-vgpu-driver/master/plugin_update_helper"
     fi
   fi
 fi
